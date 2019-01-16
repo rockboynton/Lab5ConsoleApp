@@ -106,16 +106,16 @@ int main() {
 		lastchar = 0;
 		stop = 0;
 		// Read characters into array. Stop if end of line, or array full.
-		// while(stop != 1){
-		// 	buffer[lastchar] = getchar();
-		// 	if(buffer[lastchar] == '\n')
-		// 		stop = 1;
-		// 	else
-		// 		lastchar = lastchar + 1;
-		// 	if(lastchar == BUFFER_SIZE)
-		// 		stop = 1;
-		// }
-		// lastchar = lastchar - 1;
+		while(stop != 1){
+			buffer[lastchar] = getchar();
+			if(buffer[lastchar] == '\n')
+				stop = 1;
+			else
+				lastchar = lastchar + 1;
+			if(lastchar == BUFFER_SIZE)
+				stop = 1;
+		}
+		lastchar = lastchar - 1;
 
 		switch (key) {
 			case 'A':
