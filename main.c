@@ -88,15 +88,26 @@ int main() {
 	//-----------------------------------------------------------
 
 	// --------------------- LED TEST CODE -------------------
-			if (DEBUG == 3) {
-					while (1) {
-						led_allOff();
-						for (int i = 0; i < 10; i++) {
-							led_on(i);
-							delay_1ms(500);
-						}
-					}
+	if (DEBUG == 3) {
+			while (1) {
+				led_allOff();
+				for (int i = 0; i < 10; i++) {
+					led_on(i);
+					delay_1ms(500);
+				}
 			}
+	}
+	//-----------------------------------------------------------
+
+	// --------------------- USART TEST CODE -------------------
+	if (DEBUG == 4) {
+			while (1) {
+				printf("%s!\n", "printf()");
+				delay_1ms(500);
+				puts("puts()!\n");
+				delay_1ms(1000);
+			}
+	}
 	//-----------------------------------------------------------
 
 	// Main program 
@@ -106,31 +117,28 @@ int main() {
 		lastchar = 0;
 		stop = 0;
 		// Read characters into array. Stop if end of line, or array full.
-		while(stop != 1){
-			buffer[lastchar] = getchar();
-			if(buffer[lastchar] == '\n')
-				stop = 1;
-			else
-				lastchar = lastchar + 1;
-			if(lastchar == BUFFER_SIZE)
-				stop = 1;
-		}
-		lastchar = lastchar - 1;
+		// while(stop != 1){
+		// 	buffer[lastchar] = getchar();
+		// 	if(buffer[lastchar] == '\n')
+		// 		stop = 1;
+		// 	else
+		// 		lastchar = lastchar + 1;
+		// 	if(lastchar == BUFFER_SIZE)
+		// 		stop = 1;
+		// }
+		// lastchar = lastchar - 1;
 
-		switch (key) {
-			case 'A':
-				current_temp_mode();
+		switch (entry) {
+			case 'r':
+				read_memory();
 				break;
-			case 'B':
-				extremes_mode();
+			case 'w':
+				write_memory();
 				break;
-			case 'C':
-				troubleshooting_mode();
+			case 'd':
+				dump_memory();
 				break;
-			case 'D':
-				toggle_units();
-				break;
-			case '1':
+			case 'h':
 				print_help_screen();
 				break;	
 			default:
@@ -151,7 +159,7 @@ static void print_help_screen() {
 }
 
 static uint32_t read_memory(uint32_t address) {
-
+	return 0;
 }
 
 static void write_memory(uint32_t address, uint32_t value) {
