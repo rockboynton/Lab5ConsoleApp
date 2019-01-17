@@ -27,9 +27,10 @@
 // 0 = main program
 // 1 = Thermometer tests
 // 2 = Keypad tests
-// 1 = LED tests
+// 3 = LED tests
+// 4 = LED tests
 
-#define DEBUG 4
+#define DEBUG 0
 
 #define BUFFER_SIZE 20
 
