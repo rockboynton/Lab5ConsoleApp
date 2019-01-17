@@ -125,7 +125,7 @@ int main() {
 				printf("Enter address to read from in hex(0x...) or decimal (...): ");
 				address = (uint32_t*) get_input();
 				value = read_memory(address);
-				printf("Value at address %x:  %d", address, value);
+				printf("Address \t Value\n %x \t %x\n", address, value);
 				break;
 			case 'w':
 				printf("Enter address to write to in hex(0x...) or decimal (...): ");
@@ -133,6 +133,7 @@ int main() {
 				printf("Enter value to write to %x in hex(0x...) or decimal (...): ", address);
 				value = get_input();
 				write_memory(address, value);
+				printf("If value is writeable, the write was successful.");
 				break;
 			case 'd':
 				printf("Enter address to begin dump in hex(0x...) or decimal (...): ");
@@ -154,11 +155,10 @@ int main() {
 }
 
 static void print_help_screen() {
-	printf(	"Read memory - 	The user will provide an address and the program will read that\n" 				"					address and print the contents of that address to the console in\n"
-			" 			 		hex and decimal format (optional - also binary).\n"
-			"Write memory - The user will provide an address and a value and the program will\n" 		"				write the provided value to the provided address.\n"
-			"Dump memory - 	The user will provide an address and an optional length and the program 					will dump the contents of that block of memory to the console.  If 						no length is supplied, defaults to 16 bytes.  The output should be 						formatted with 8 or 16 bytes per line, in hex.  Each line starts 						with the address.\n"
-			"Help - 		Provides the user with detailed help in using your program\n");
+	printf(	"Read memory (Command 'r'): \t Specify an address to read the value from memory.\n"
+			"Write memory (Command 'w'): \t Specify an address and a value to write at that address.\n"
+			"Dump memory (Command 'd'): \t Specify a starting address and length to dump values.\n"
+			"Help (Command 'h'): \t Prints this interface\n");
 }
 
 static uint32_t read_memory(uint32_t * address) {
@@ -170,8 +170,9 @@ static void write_memory(uint32_t * address, uint32_t value) {
 }
 
 static void dump_memory(uint32_t * address, uint32_t length) {
+	printf("Address \t Value\n");
 	for(int i = 0; i < length; i++) {
-		printf("Value at address %x:  %d", address, *address);
+		printf("%x \t %x\n", address, *address);
 		address++;
 	}
 }
