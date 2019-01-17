@@ -4,13 +4,13 @@
  * Console application that will present a menu to the user and offer basic system control.
  * 
  * The following menu options are implemented:
- * 		Read memory – 	The user will provide an address and the program will read that 
+ * 		Read memory - 	The user will provide an address and the program will read that 
  *       				  address and print the contents of that address to the console in hex and
- *  					  decimal format (optional – also binary).
- * 		Write memory –  The user will provide an address and a value and the program will write the
+ *  					  decimal format (optional - also binary).
+ * 		Write memory -  The user will provide an address and a value and the program will write the
  * 						  provided value to the provided address.
- * 		Dump memory – 	The user will provide an address and an optional length and the program 	*						  will dump the contents of that block of memory to the console.  If no 	*						  length is supplied, defaults to 16 bytes.  The output should be formatted *						  with 8 or 16 bytes per line, in hex.  Each line starts with the address.  *						  As an example, look at the memory view window in the System Workbench 	*						  debugger.
- * 		Help – 			Provides the user with detailed help in using your program
+ * 		Dump memory - 	The user will provide an address and an optional length and the program 	*						  will dump the contents of that block of memory to the console.  If no 	*						  length is supplied, defaults to 16 bytes.  The output should be formatted *						  with 8 or 16 bytes per line, in hex.  Each line starts with the address.  *						  As an example, look at the memory view window in the System Workbench 	*						  debugger.
+ * 		Help - 			Provides the user with detailed help in using your program 
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -120,7 +120,7 @@ int main() {
 	while (1) {
 		printf("Enter Command: ");
 		gets(buffer); 
-		switch (0) {
+		switch (buffer[0]) {
 			case 'r':
 				printf("Enter address to read from in hex(0x...) or decimal (...): ");
 				address = (uint32_t*) get_input();
@@ -154,11 +154,11 @@ int main() {
 }
 
 static void print_help_screen() {
-	printf(	"Read memory – 	The user will provide an address and the program will read that\n" 				"					address and print the contents of that address to the console in\n"
-			" 			 		hex and decimal format (optional – also binary).\n"
-			"Write memory – The user will provide an address and a value and the program will\n" 		"				write the provided value to the provided address.\n"
-			"Dump memory – 	The user will provide an address and an optional length and the program 					will dump the contents of that block of memory to the console.  If 						no length is supplied, defaults to 16 bytes.  The output should be 						formatted with 8 or 16 bytes per line, in hex.  Each line starts 						with the address.\n"
-			"Help – 		Provides the user with detailed help in using your program\n");
+	printf(	"Read memory - 	The user will provide an address and the program will read that\n" 				"					address and print the contents of that address to the console in\n"
+			" 			 		hex and decimal format (optional - also binary).\n"
+			"Write memory - The user will provide an address and a value and the program will\n" 		"				write the provided value to the provided address.\n"
+			"Dump memory - 	The user will provide an address and an optional length and the program 					will dump the contents of that block of memory to the console.  If 						no length is supplied, defaults to 16 bytes.  The output should be 						formatted with 8 or 16 bytes per line, in hex.  Each line starts 						with the address.\n"
+			"Help - 		Provides the user with detailed help in using your program\n");
 }
 
 static uint32_t read_memory(uint32_t * address) {
