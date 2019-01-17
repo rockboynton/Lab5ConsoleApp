@@ -147,7 +147,7 @@ int main() {
 				print_help_screen();
 				break;	
 			default:
-				puts("Invalid Command.");
+				puts("Invalid Command."); 
 				break;
 		}
 	}
@@ -186,6 +186,7 @@ static uint32_t get_input() {
 	uint8_t valid = 0;
 	while (!valid) {
 		gets(input_str);
+		while ((getchar()) != '\n'); // clear input buffer
 		input = (uint32_t) strtol(input_str, &ptr, 0); 
 		if (input != 0) {
 			valid = 1;
