@@ -31,12 +31,13 @@
 
 #define DEBUG 4
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 20
 
 // Initialize variables to be used 
-uint8_t buffer[BUFFER_SIZE+1];
-uint8_t lastchar = 0;
-uint8_t stop = 0;
+char buffer[BUFFER_SIZE+1];
+uint32_t *address;
+uint32_t value;
+uint32_t length;
 
 // File scope helper methods
 static void print_help_screen();
@@ -118,17 +119,26 @@ int main() {
 	while (1) {
 		printf("Enter Command: ");
 		gets(buffer); 
-
-
 		switch (0) {
 			case 'r':
-				read_memory(0);
+				printf("Enter address to read from in hex(0x...) or decimal (...): ");
+				address = (uint32_t*) get_input();
+				value = read_memory(address);
+				printf("Value at address %x:  %d", address, value);
 				break;
 			case 'w':
-				write_memory(0,0);
+				printf("Enter address to write to in hex(0x...) or decimal (...): ");
+				address = (uint32_t*) get_input();
+				printf("Enter value to write to %x in hex(0x...) or decimal (...): ", address);
+				value = get_input();
+				write_memory(address, value);
 				break;
 			case 'd':
-				dump_memory(0,0);
+				printf("Enter address to begin dump in hex(0x...) or decimal (...): ");
+				address = get_input();
+				printf("Enter length of dump starting at %x in hex(0x...) or decimal (...): ", address);
+				length = get_input();
+				dump_memory(address,length);
 				break;
 			case 'h':
 				print_help_screen();
@@ -143,43 +153,41 @@ int main() {
 }
 
 static void print_help_screen() {
-	printf("H: Help Screen\n"
-           "B: Extremes Mode - displays the current warmest and coldest temperatures read\n"
-           "C: Trouble Shooting Mode - displays the current temperature and the input voltage "
-           "   value coming from the temperatures sensor\n"
-           "D: Toggle Celsius/Fahrenheit\n"
-		   "1: Help Screen\n");
+	printf(	"Read memory – 	The user will provide an address and the program will read that\n" 				"					address and print the contents of that address to the console in\n"
+			" 			 		hex and decimal format (optional – also binary).\n"
+			"Write memory – The user will provide an address and a value and the program will\n" 		"				write the provided value to the provided address.\n"
+			"Dump memory – 	The user will provide an address and an optional length and the program 					will dump the contents of that block of memory to the console.  If 						no length is supplied, defaults to 16 bytes.  The output should be 						formatted with 8 or 16 bytes per line, in hex.  Each line starts 						with the address.\n"
+			"Help – 		Provides the user with detailed help in using your program\n");
 }
 
-static uint32_t read_memory(uint32_t address) {
-	valid = 1;
-	while (valid);
-		printf("Enter address to read from in hex(0x...) or decimal (...): ")
-		gets(buffer);
-		switch (0) {
-			case 'r':
-				read_memory(0);
-				break;
-			case 'w':
-				write_memory(0,0);
-				break;
-			case 'd':
-				dump_memory(0,0);
-				break;
-			case 'h':
-				print_help_screen();
-				break;	
-			default:
-				puts("Invalid Command.");
-				break;
-			}
-	return 0;
+static uint32_t read_memory(uint32_t * address) {
+	return *address;
 }
 
-static void write_memory(uint32_t address, uint32_t value) {
-	
+static void write_memory(uint32_t * address, uint32_t value) {
+	*address = value;
 }
 
-static void dump_memory(uint32_t address, uint32_t length) {
-	
+static void dump_memory(uint32_t * address, uint32_t length) {
+	for(i = 0; i < length; i++) {
+		printf("Value at address %x:  %d", address, *address);
+		address++;
+	}
+}
+
+static uint32_t get_input() {
+	char input_str[BUFFER_SIZE + 1];
+	uint32_t input;
+	char *ptr; // for strtol()
+	uint8_t valid = 0;
+	while (!valid) {
+		gets(input_str);
+		input = (uint32_t) strtol(input_str, &ptr, 0); 
+		if (input != 0) {
+			valid = 1;
+		} else {
+			puts("Invalid.");
+		}
+	}
+	return input;
 }
