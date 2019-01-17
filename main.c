@@ -134,7 +134,7 @@ int main() {
 				printf("Enter value to write to %x in hex(0x...) or decimal (...): ", address);
 				value = get_input();
 				write_memory(address, value);
-				printf("If value is writeable, the write was successful.");
+				printf("If value is writeable, the write was successful.\n");
 				break;
 			case 'd':
 				printf("Enter address to begin dump in hex(0x...) or decimal (...): ");
@@ -156,10 +156,11 @@ int main() {
 }
 
 static void print_help_screen() {
-	printf(	"Read memory (Command 'r'): \t Specify an address to read the value from memory.\n"
-			"Write memory (Command 'w'): \t Specify an address and a value to write at that address.\n"
-			"Dump memory (Command 'd'): \t Specify a starting address and length to dump values.\n"
-			"Help (Command 'h'): \t Prints this interface\n");
+	printf(	"Read memory (Command 'r'): Specify address to read value from memory.\n"
+			"Write memory (Command 'w'): Specify address and value to write at address.\n"
+			"Dump memory (Command 'd'):  Specify starting address and length to dump\n"
+			"                            values.\n"
+			"Help (Command 'h'):         Prints this interface\n\n");
 }
 
 static uint32_t read_memory(uint32_t * address) {
@@ -189,7 +190,7 @@ static uint32_t get_input() {
 		if (input != 0) {
 			valid = 1;
 		} else {
-			puts("Invalid.");
+			puts("Invalid. Try again\n");
 		}
 	}
 	return input;
