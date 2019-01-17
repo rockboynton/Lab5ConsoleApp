@@ -41,9 +41,10 @@ uint32_t length;
 
 // File scope helper methods
 static void print_help_screen();
-static uint32_t read_memory(uint32_t address);
-static void write_memory(uint32_t address, uint32_t value);
-static void dump_memory(uint32_t address, uint32_t length); // ? length is optional, defaults to 16 bytes
+static uint32_t read_memory(uint32_t * address);
+static void write_memory(uint32_t * address, uint32_t value);
+static void dump_memory(uint32_t * address, uint32_t length); // ? length is optional, defaults to 16 bytes
+static uint32_t get_input();
 
 
 
@@ -169,7 +170,7 @@ static void write_memory(uint32_t * address, uint32_t value) {
 }
 
 static void dump_memory(uint32_t * address, uint32_t length) {
-	for(i = 0; i < length; i++) {
+	for(int i = 0; i < length; i++) {
 		printf("Value at address %x:  %d", address, *address);
 		address++;
 	}
