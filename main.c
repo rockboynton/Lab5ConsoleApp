@@ -29,12 +29,12 @@
 // 2 = Keypad tests
 // 1 = LED tests
 
-#define DEBUG 0
+#define DEBUG 4
 
 #define BUFFER_SIZE 10
 
 // Initialize variables to be used 
-uint8_t buffer[BUFFER_SIZE];
+uint8_t buffer[BUFFER_SIZE+1];
 uint8_t lastchar = 0;
 uint8_t stop = 0;
 
@@ -101,10 +101,12 @@ int main() {
 
 	// --------------------- USART TEST CODE -------------------
 	if (DEBUG == 4) {
+		char entry[20];
 			while (1) {
-				printf("%s!\n", "printf()");
+				printf("Enter name: ");
+				gets(entry);
 				delay_1ms(500);
-				puts("puts()!\n");
+				printf("Your name: %s\n", entry);
 				delay_1ms(1000);
 			}
 	}
@@ -114,34 +116,25 @@ int main() {
 	// Never return
 	print_help_screen();
 	while (1) {
-		lastchar = 0;
-		stop = 0;
-		// Read characters into array. Stop if end of line, or array full.
-		// while(stop != 1){
-		// 	buffer[lastchar] = getchar();
-		// 	if(buffer[lastchar] == '\n')
-		// 		stop = 1;
-		// 	else
-		// 		lastchar = lastchar + 1;
-		// 	if(lastchar == BUFFER_SIZE)
-		// 		stop = 1;
-		// }
-		// lastchar = lastchar - 1;
+		printf("Enter Command: ");
+		gets(buffer); 
 
-		switch (entry) {
+
+		switch (0) {
 			case 'r':
-				read_memory();
+				read_memory(0);
 				break;
 			case 'w':
-				write_memory();
+				write_memory(0,0);
 				break;
 			case 'd':
-				dump_memory();
+				dump_memory(0,0);
 				break;
 			case 'h':
 				print_help_screen();
 				break;	
 			default:
+				puts("Invalid Command.");
 				break;
 		}
 	}
@@ -159,6 +152,27 @@ static void print_help_screen() {
 }
 
 static uint32_t read_memory(uint32_t address) {
+	valid = 1;
+	while (valid);
+		printf("Enter address to read from in hex(0x...) or decimal (...): ")
+		gets(buffer);
+		switch (0) {
+			case 'r':
+				read_memory(0);
+				break;
+			case 'w':
+				write_memory(0,0);
+				break;
+			case 'd':
+				dump_memory(0,0);
+				break;
+			case 'h':
+				print_help_screen();
+				break;	
+			default:
+				puts("Invalid Command.");
+				break;
+			}
 	return 0;
 }
 
